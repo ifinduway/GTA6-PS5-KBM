@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GTA 6 Keyboard Layout</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one column of mode sections; each is a key → button → action table. Sunset pink accent, cool indigo neutrals. */
+:root {
+  --bg: #f6f4f8;
+  --surface: #ffffff;
+  --fg: #1d1a26;
+  --muted: #625d70;
+  --line: #e2dde9;
+  --accent: #d6336c;
+  --accent-soft: #fbe3ec;
+  --car: #0d7f8c;
+  --car-soft: #ddf2f3;
+  --pc: #6a5acd;
+  --pc-soft: #e9e6fb;
+  --air: #c2691b;
+  --air-soft: #fbeadb;
+  --key-bg: #fbfafd;
+  --key-edge: #cfc8da;
+  --cross: #4f7fd8; --circle: #d8475a; --square: #c35fae; --triangle: #2e9e7c;
+  --font-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15131c; --surface: #1d1a27; --fg: #ece9f3; --muted: #a39db3; --line: #2e2a3b;
+    --accent: #ff6b9a; --accent-soft: #3a1f2c; --car: #4cc6d2; --car-soft: #16323a;
+    --pc: #a99bff; --pc-soft: #282345; --key-bg: #262233; --key-edge: #403a52;
+    --cross: #7ea6f2; --circle: #f27584; --square: #e08ad0; --triangle: #5fcfa9;
+    --air: #f0a35e; --air-soft: #3a2a1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15131c; --surface: #1d1a27; --fg: #ece9f3; --muted: #a39db3; --line: #2e2a3b;
+  --accent: #ff6b9a; --accent-soft: #3a1f2c; --car: #4cc6d2; --car-soft: #16323a;
+  --pc: #a99bff; --pc-soft: #282345; --key-bg: #262233; --key-edge: #403a52;
+  --cross: #7ea6f2; --circle: #f27584; --square: #e08ad0; --triangle: #5fcfa9;
+  --air: #f0a35e; --air-soft: #3a2a1a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+}
+.wrap {
+  max-width: 980px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 56px;
+  display: flex; flex-direction: column; gap: 28px;
+}
+header { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 6vw, 52px); line-height: 1; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+.lede { color: var(--muted); max-width: 65ch; margin: 4px 0 0; }
+
+.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.mode { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.mode .keys { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.mode .what { font-weight: 600; }
+.mode .note { color: var(--muted); font-size: 13px; }
+.mode.foot { border-top: 3px solid var(--accent); }
+.mode.car { border-top: 3px solid var(--car); }
+.mode.pc { border-top: 3px solid var(--pc); }
+.mode.air { border-top: 3px solid var(--air); }
+.tag.air { background: var(--air-soft); color: var(--air); }
+.mode.view { border-top: 3px solid var(--muted); }
+
+section { display: flex; flex-direction: column; gap: 10px; }
+.sec-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; margin: 0; letter-spacing: .02em; text-transform: uppercase; }
+.tag { font-family: var(--font-mono); font-size: 12px; padding: 2px 8px; border-radius: 999px; }
+.tag.foot { background: var(--accent-soft); color: var(--accent); }
+.tag.car { background: var(--car-soft); color: var(--car); }
+.sec-note { color: var(--muted); font-size: 13px; margin: 0; max-width: 70ch; }
+
+.tbl-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; min-width: 520px; }
+th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; background: var(--bg); }
+td.k { width: 34%; }
+td.b { width: 22%; white-space: nowrap; }
+tr.group td { background: var(--bg); font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-block: 6px; }
+
+kbd {
+  display: inline-block; font-family: var(--font-mono); font-size: 12.5px; font-weight: 600;
+  min-width: 26px; text-align: center; padding: 2px 7px; margin: 1px 2px 1px 0;
+  background: var(--key-bg); color: var(--fg); border: 1px solid var(--key-edge); border-bottom-width: 3px; border-radius: 6px;
+}
+.or { color: var(--muted); font-size: 12px; margin: 0 2px; }
+.pad { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+.sym { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 2px solid currentColor; font-size: 12px; line-height: 1; }
+.cross { color: var(--cross); } .circle { color: var(--circle); } .square { color: var(--square); } .triangle { color: var(--triangle); }
+.chip { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: var(--bg); border: 1px solid var(--line); }
+.dim { color: var(--muted); }
+
+.tips { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.tips ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+.tips li { max-width: 75ch; }
+footer { color: var(--muted); font-size: 12.5px; font-family: var(--font-mono); }
+
+@media (max-width: 560px) {
+  td.k { width: auto; }
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">PS5 · Remote Play через Veyra · reWASD «GTA6 KB+M», слот 1</span>
+    <h1>Управление GTA 6 с клавиатуры и мыши</h1>
+    <p class="lede">Клавиатура и мышь работают как виртуальный геймпад DualShock&nbsp;4. Действия указаны по стандартной схеме GTA&nbsp;5. Если в GTA&nbsp;6 какая-то кнопка делает другое, ориентируйся на столбец «Кнопка геймпада».</p>
+  </header>
+
+  <div class="modes" aria-label="Переключение режимов">
+    <div class="mode foot">
+      <div class="what">Пешком</div>
+      <div class="keys"><span class="note">Включён по умолчанию</span></div>
+    </div>
+    <div class="mode car">
+      <div class="what">Режим машины</div>
+      <div class="keys"><kbd>V</kbd><span class="note">включить / выключить</span></div>
+    </div>
+    <div class="mode air">
+      <div class="what">Режим полёта</div>
+      <div class="keys"><kbd>G</kbd><span class="note">включить / выключить</span></div>
+      <div class="note">Вертолёты и самолёты.</div>
+    </div>
+    <div class="mode pc">
+      <div class="what">Обычный ПК</div>
+      <div class="keys"><kbd>Right Shift</kbd><span class="note">выключить геймпад</span></div>
+      <div class="keys"><kbd>Right Ctrl</kbd><span class="note">вернуться в игру</span></div>
+      <div class="note">Это слоты reWASD: слот 2 «PC» и слот 1 «GTA6 KB+M». Аварийный выход: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> полностью выключает reWASD.</div>
+    </div>
+    <div class="mode view">
+      <div class="what">Спрятать курсор</div>
+      <div class="keys"><kbd>F11</kbd><span class="note">полный экран Veyra</span></div>
+      <div class="note">Курсор исчезает сам через 1,6&nbsp;с. Скрыть панель Veyra: <kbd>Ctrl</kbd>+<kbd>L</kbd> в режиме ПК.</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head"><h2>Пешком</h2><span class="tag foot">основной слой</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Клавиша</th><th>Кнопка геймпада</th><th>Действие в игре</th></tr></thead>
+        <tbody>
+          <tr class="group"><td colspan="3">Движение</td></tr>
+          <tr><td class="k"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></td><td class="b"><span class="chip">Левый стик</span></td><td>Ходьба</td></tr>
+          <tr><td class="k"><kbd>Left Shift</kbd> <span class="dim">держать</span></td><td class="b"><span class="pad"><span class="sym cross">✕</span> авто-повтор</span></td><td>Бег (кнопка жмётся сама, пока держишь)</td></tr>
+          <tr><td class="k"><kbd>Space</kbd></td><td class="b"><span class="pad"><span class="sym square">□</span> Квадрат</span></td><td>Прыжок</td></tr>
+          <tr><td class="k"><kbd>Left Ctrl</kbd><span class="or">или</span><kbd>X</kbd></td><td class="b"><span class="chip">L3</span></td><td>Присесть / скрытность</td></tr>
+          <tr class="group"><td colspan="3">Бой</td></tr>
+          <tr><td class="k"><kbd>R</kbd></td><td class="b"><span class="pad"><span class="sym circle">○</span> Круг</span></td><td>Перезарядка</td></tr>
+          <tr><td class="k"><kbd>Q</kbd></td><td class="b"><span class="chip">R1</span></td><td>Укрытие</td></tr>
+          <tr><td class="k"><kbd>Tab</kbd></td><td class="b"><span class="chip">L1</span></td><td>Колесо оружия</td></tr>
+          <tr><td class="k"><kbd>E</kbd></td><td class="b"><span class="chip">L1</span></td><td>Подобрать оружие</td></tr>
+          <tr><td class="k"><kbd>Caps Lock</kbd></td><td class="b"><span class="chip">L2</span></td><td>Прицел (запасной вариант ПКМ)</td></tr>
+          <tr class="group"><td colspan="3">Взаимодействие</td></tr>
+          <tr><td class="k"><kbd>F</kbd></td><td class="b"><span class="pad"><span class="sym triangle">△</span> Треугольник</span></td><td>Сесть в машину / выйти</td></tr>
+          <tr><td class="k"><kbd>T</kbd></td><td class="b"><span class="chip">D-pad →</span></td><td>Действие по ситуации</td></tr>
+          <tr><td class="k"><kbd>C</kbd><span class="or">или</span><kbd>Z</kbd></td><td class="b"><span class="chip">R3</span></td><td>Камера / смотреть назад</td></tr>
+          <tr><td class="k"><kbd>M</kbd><span class="or">или</span><kbd>B</kbd><span class="or">или</span><kbd>Del</kbd></td><td class="b"><span class="chip">Тачпад</span></td><td>Карта</td></tr>
+          <tr class="group"><td colspan="3">Крестовина (D-pad)</td></tr>
+          <tr><td class="k"><kbd>1</kbd><span class="or">или</span><kbd>↑</kbd></td><td class="b"><span class="chip">D-pad ↑</span></td><td>Телефон</td></tr>
+          <tr><td class="k"><kbd>2</kbd><span class="or">или</span><kbd>↓</kbd></td><td class="b"><span class="chip">D-pad ↓</span></td><td>Смена персонажа / меню</td></tr>
+          <tr><td class="k"><kbd>3</kbd><span class="or">или</span><kbd>←</kbd></td><td class="b"><span class="chip">D-pad ←</span></td><td>По ситуации в игре</td></tr>
+          <tr><td class="k"><kbd>4</kbd><span class="or">или</span><kbd>→</kbd></td><td class="b"><span class="chip">D-pad →</span></td><td>По ситуации в игре</td></tr>
+          <tr class="group"><td colspan="3">Меню и система</td></tr>
+          <tr><td class="k"><kbd>Esc</kbd><span class="or">или</span><kbd>O</kbd></td><td class="b"><span class="chip">Options</span></td><td>Пауза, меню игры</td></tr>
+          <tr><td class="k"><kbd>Enter</kbd></td><td class="b"><span class="pad"><span class="sym cross">✕</span> Крест</span></td><td>Подтвердить в меню</td></tr>
+          <tr><td class="k"><kbd>Backspace</kbd></td><td class="b"><span class="pad"><span class="sym circle">○</span> Круг</span></td><td>Назад в меню</td></tr>
+          <tr><td class="k"><kbd>F1</kbd><span class="or">или</span><kbd>Home</kbd></td><td class="b"><span class="chip">PS</span></td><td>Меню PS5</td></tr>
+          <tr><td class="k"><kbd>F2</kbd><span class="or">или</span><kbd>Insert</kbd></td><td class="b"><span class="chip">Create</span></td><td>Скриншот / запись PS5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Мышь</h2><span class="tag foot">везде, кроме режима ПК</span></div>
+    <p class="sec-note">Мышь должна быть в той же группе устройств reWASD, что и клавиатура, и определяться в reWASD именно как мышь. Если курсор Windows продолжает двигаться в игре — см. раздел «Проблемы» в гайде.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Кнопка мыши</th><th>Кнопка геймпада</th><th>Действие в игре</th></tr></thead>
+        <tbody>
+          <tr><td class="k"><span class="chip">Движение</span></td><td class="b"><span class="chip">Правый стик</span></td><td>Камера и прицел</td></tr>
+          <tr><td class="k"><span class="chip">ЛКМ</span></td><td class="b"><span class="chip">R2</span></td><td>Стрельба · в машине газ</td></tr>
+          <tr><td class="k"><span class="chip">ПКМ</span></td><td class="b"><span class="chip">L2</span></td><td>Прицел (своя чувствительность мыши) · в машине тормоз</td></tr>
+          <tr><td class="k"><span class="chip">Колесо (нажатие)</span></td><td class="b"><span class="chip">R3</span></td><td>Камера / смотреть назад</td></tr>
+          <tr><td class="k"><span class="chip">Боковая «вперёд»</span></td><td class="b"><span class="chip">D-pad ↑</span></td><td>Телефон</td></tr>
+          <tr><td class="k"><span class="chip">Боковая «назад»</span></td><td class="b"><span class="chip">D-pad ↓</span></td><td>Как <kbd>2</kbd></td></tr>
+          <tr><td class="k"><span class="chip">Прокрутка</span></td><td class="b"><span class="dim">не назначена</span></td><td class="dim">Свободна, чтобы случайно не уходить в укрытие</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Режим машины</h2><span class="tag car">включается клавишей V</span></div>
+    <p class="sec-note">Меняются только клавиши ниже. Остальное работает как пешком, мышь крутит камеру. Без режима машины тоже можно ехать: <span class="chip">ЛКМ</span> газ, <span class="chip">ПКМ</span> тормоз, <kbd>A</kbd>/<kbd>D</kbd> руль.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Клавиша</th><th>Кнопка геймпада</th><th>Действие в игре</th></tr></thead>
+        <tbody>
+          <tr><td class="k"><kbd>W</kbd></td><td class="b"><span class="chip">R2</span></td><td>Газ</td></tr>
+          <tr><td class="k"><kbd>S</kbd></td><td class="b"><span class="chip">L2</span></td><td>Тормоз / задний ход</td></tr>
+          <tr><td class="k"><kbd>A</kbd><kbd>D</kbd></td><td class="b"><span class="chip">Левый стик</span></td><td>Руль</td></tr>
+          <tr><td class="k"><kbd>Space</kbd></td><td class="b"><span class="chip">R1</span></td><td>Ручник</td></tr>
+          <tr><td class="k"><kbd>Left Shift</kbd></td><td class="b"><span class="chip">L3</span></td><td>Сигнал</td></tr>
+          <tr><td class="k"><kbd>F</kbd></td><td class="b"><span class="pad"><span class="sym triangle">△</span> Треугольник</span></td><td>Выйти из машины</td></tr>
+          <tr><td class="k"><kbd>V</kbd></td><td class="b"><span class="dim">—</span></td><td>Вернуться в режим «пешком»</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Режим полёта</h2><span class="tag air">включается клавишей G</span></div>
+    <p class="sec-note">Сядь в вертолёт или самолёт и нажми <kbd>G</kbd>. Мышь по-прежнему крутит камеру, <kbd>F</kbd> — выйти. Ещё раз <kbd>G</kbd> — обратно в режим «пешком», <kbd>V</kbd> — сразу в режим машины.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Клавиша</th><th>Кнопка геймпада</th><th>Вертолёт</th><th>Самолёт</th></tr></thead>
+        <tbody>
+          <tr><td class="k"><kbd>W</kbd></td><td class="b"><span class="chip">R2</span></td><td>Подъём</td><td>Газ</td></tr>
+          <tr><td class="k"><kbd>S</kbd></td><td class="b"><span class="chip">L2</span></td><td>Спуск</td><td>Тормоз / сбросить скорость</td></tr>
+          <tr><td class="k"><kbd>A</kbd><kbd>D</kbd></td><td class="b"><span class="chip">L1</span> / <span class="chip">R1</span></td><td>Поворот на месте влево / вправо</td><td>Руль направления влево / вправо</td></tr>
+          <tr><td class="k"><kbd>↑</kbd><kbd>↓</kbd></td><td class="b"><span class="chip">Левый стик</span></td><td>Наклон вперёд (лететь вперёд) / назад</td><td>Нос вниз / нос вверх</td></tr>
+          <tr><td class="k"><kbd>←</kbd><kbd>→</kbd></td><td class="b"><span class="chip">Левый стик</span></td><td>Смещение влево / вправо</td><td>Крен влево / вправо</td></tr>
+          <tr><td class="k"><kbd>Space</kbd></td><td class="b"><span class="chip">L3</span></td><td class="dim">—</td><td>Шасси</td></tr>
+          <tr><td class="k"><span class="chip">ЛКМ</span> / <span class="chip">ПКМ</span></td><td class="b"><span class="chip">R2</span> / <span class="chip">L2</span></td><td>Как <kbd>W</kbd> / <kbd>S</kbd></td><td>Как <kbd>W</kbd> / <kbd>S</kbd></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="tips">
+    <ul>
+      <li>Окно Veyra должно быть активным. Если ничего не реагирует, нажми <kbd>Right Shift</kbd>, кликни по окну Veyra и нажми <kbd>Right Ctrl</kbd>.</li>
+      <li>Не вышел из машины клавишей <kbd>F</kbd>, а режим машины остался включён? Пешком <kbd>W</kbd> тогда жмёт газ (R2). Нажми <kbd>V</kbd>, чтобы вернуться.</li>
+      <li>Мышь слишком резкая или медленная: сначала поменяй чувствительность камеры и прицела в настройках GTA, потом, если нужно, кривую мыши в reWASD.</li>
+      <li>Чтобы снова играть на DualSense: выключи конфигурацию кнопкой питания в reWASD и подключи геймпад к ПК.</li>
+    </ul>
+  </div>
+
+  <footer>Конфигурации reWASD: «GTA6 KB+M (slot 1)» и «GTA6 PC mode (slot 2)» · клавиатура и мышь объединены в одну группу устройств</footer>
+</div>
+
+</body>
+</html>

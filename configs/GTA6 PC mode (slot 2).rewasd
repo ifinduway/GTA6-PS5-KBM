@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 3.0,
+  "appVersion": "9.5.0",
+  "config": {
+    "appName": "GTA 6 PS5 Remote Play (Veyra)",
+    "comment": "PC mode for slot 2: keyboard and mouse work normally, virtual DualShock 4 stays connected and idle. Right Shift switches here, Right Ctrl returns to slot 1.",
+    "minTimeUnit": 1
+  },
+  "devices": {
+    "groups": [
+      {
+        "id": 1,
+        "name": "keyboard"
+      }
+    ],
+    "hardware": [
+      {
+        "id": 1,
+        "name": "gamepad",
+        "convertToVirtual": true
+      },
+      {
+        "groupId": 1,
+        "id": 11,
+        "name": "keyboard",
+        "type": "standard"
+      }
+    ],
+    "virtual": {
+      "gamepads": [
+        {
+          "id": 1,
+          "type": "ds4",
+          "virtualUsbHub": true
+        }
+      ]
+    }
+  },
+  "masks": [
+    {
+      "id": 1,
+      "set": [
+        {
+          "deviceId": 11,
+          "buttonId": 70,
+          "description": "DIK_SCROLL"
+        }
+      ]
+    }
+  ],
+  "mappings": [
+    {
+      "description": "Scroll Lock stays Scroll Lock",
+      "condition": {
+        "mask": {
+          "id": 1,
+          "activator": {
+            "type": "single",
+            "mode": "hold_until_release"
+          }
+        }
+      },
+      "macros": [
+        {
+          "keyboard": {
+            "buttonId": 70,
+            "description": "DIK_SCROLL"
+          }
+        }
+      ]
+    }
+  ]
+}
